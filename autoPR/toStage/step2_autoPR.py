@@ -9,38 +9,40 @@ import time
 import pickle
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.wait import WebDriverWait
 
-pr_release_name = "publish/10"
-date = "20240731"
+pr_release_name = "publish/13"
+date = "20241009"
 
 project_path = [
-    ("/Users/aaron.tanhenkel.com/Documents/Project/Git/b2b/ecommerce-service-store-b2b", "release/1.0.X",
-     'ecommerce-service-store-b2b', 'b2b-1.0.35-SNAPSHOT'),
-    # ("/Users/aaron.tanhenkel.com/Documents/Project/Git/osb/ecommerce-service-mall", "release/2.4.X",
-    #  'ecommerce-service-store-osb', 'osb-2.4.18-SNAPSHOT'),
-    ("/Users/aaron.tanhenkel.com/Documents/Project/Git/abc/ecommerce-service-mall", "release/3.0.X",
-     'ecommerce-service-store-abc', 'abc-3.0.35-SNAPSHOT'),
-
-    ("/Users/aaron.tanhenkel.com/Documents/Project/Git/promotion/ecommerce-core-promotion", "release/2.2.X",
-     'ecommerce-core-promotion', '2.2.X'),
-    ("/Users/aaron.tanhenkel.com/Documents/Project/Git/promotion/dependency-promotion-rule-engine", "release/2.0.X",
+    # ("/Users/tanaa/Documents/Project/b2b/ecommerce-service-store-b2b", "release/1.0.X",
+    #  'ecommerce-service-store-b2b', 'b2b-1.0.40-SNAPSHOT'),
+    # ("/Users/tanaa/Documents/Project/osb/ecommerce-service-store-osb", "release/2.4.X",
+    #  'ecommerce-service-store-osb', 'osb-2.4.19-SNAPSHOT'),
+    # ("/Users/tanaa/Documents/Project/abc/ecommerce-service-store-abc", "release/3.0.X",
+    #  'ecommerce-service-store-abc', 'abc-3.0.37-SNAPSHOT'),
+    #
+    # ("/Users/tanaa/Documents/Project/ecommerce-core-promotion", "release/2.2.X",
+    #  'ecommerce-core-promotion', '2.2.X'),
+    ("/Users/tanaa/Documents/Project/dependency-promotion-rule-engine", "release/2.0.X",
      'dependency-promotion-rule-engine', '2.0.X'),
-    ("/Users/aaron.tanhenkel.com/Documents/Project/Git/promotion/ecommerce-service-promotion", "release/2.2.X",
-     'ecommerce-service-promotion', '2.2.X'),
+    # ("/Users/tanaa/Documents/Project/ecommerce-service-promotion", "release/2.2.X",
+    #  'ecommerce-service-promotion', '2.2.X'),
 
-    # ("/Users/aaron.tanhenkel.com/Documents/Project/Git/mkp/ecommerce-service-store-mkp", "release/2.4.X",
+    # ("/Users/tanaa/Documents/Project/mkp/ecommerce-service-store-mkp", "release/2.4.X",
     #  'ecommerce-service-store-mkp', 'mkp-2.4.25-SNAPSHOT'),
     #
-    ("/Users/aaron.tanhenkel.com/Documents/Project/Git/b2b/ecommerce-gateway-store-b2b", "release/1.0.X",
-     'ecommerce-gateway-store-b2b', 'b2b-1.0.X-SNAPSHOT'),
-    ("/Users/aaron.tanhenkel.com/Documents/Project/Git/osb/ecommerce-gateway-store-osb", "release/2.3.X",
-     'ecommerce-gateway-store-osb', 'osb-2.3.X-SNAPSHOT'),
-    ("/Users/aaron.tanhenkel.com/Documents/Project/Git/mkp/ecommerce-gateway-store-mkp", "release/2.2.X",
-     'ecommerce-gateway-store-mkp', 'mkp-2.2.X-SNAPSHOT'),
-    ("/Users/aaron.tanhenkel.com/Documents/Project/Git/abc/ecommerce-gateway-store-abc", "release/2.2.X",
-     'ecommerce-gateway-store-abc', 'abc-2.2.X-SNAPSHOT'),
+    # ("/Users/tanaa/Documents/Project/b2b/ecommerce-gateway-store-b2b", "release/1.0.X",
+    #  'ecommerce-gateway-store-b2b', 'b2b-1.0.X-SNAPSHOT'),
+    # ("/Users/tanaa/Documents/Project/osb/ecommerce-gateway-store-osb", "release/2.3.X",
+    #  'ecommerce-gateway-store-osb', 'osb-2.3.X-SNAPSHOT'),
+    # ("/Users/tanaa/Documents/Project/mkp/ecommerce-gateway-store-mkp", "release/2.2.X",
+    #  'ecommerce-gateway-store-mkp', 'mkp-2.2.X-SNAPSHOT'),
+    # ("/Users/tanaa/Documents/Project/abc/ecommerce-gateway-store-abc", "release/2.2.X",
+    #  'ecommerce-gateway-store-abc', 'abc-2.2.X-SNAPSHOT'),
 ]
 
 
@@ -56,20 +58,18 @@ def doShell(shell, path):
 
 
 def configEnv():
-    # 使用Chrome浏览器的选项，以便能够复用现有的用户数据和登录状态
     chrome_options = webdriver.ChromeOptions()
-
     chrome_options.add_argument(
-        '--user-data-dir=/Users/aaron.tanhenkel.com/Library/Application Support/Google/Chrome')
-    chrome_options.add_argument('--profile-directory=Default')  # 可能需要更改 'Profile 1' 以匹配您的实际配置
+        '--user-data-dir=/Users/tanaa/Library/Application Support/Google/Chrome')
 
-    chrome_options.set_capability("unhandledPromptBehavior", "accept")
+    # service = Service(ChromeDriverManager().install(), options=chrome_options)
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager(driver_version="129.0.6668.101").install()),
+                              options=chrome_options)
+    return driver
 
-    return webdriver.Chrome(chromedriver.install(), chrome_options=chrome_options)
 
-
-def createPR(wb, serviceName, version):
-    url = "https://dev.azure.com/henkeldx/RAQN%20DCP/_git/" + serviceName + "/pullrequests?_a=mine"
+def createPR(wb, serviceName, version, index):
+    url = "https://dev.azure.com/henkeldx/RAQN%20DCP/_git/" + serviceName + "/pullrequestcreate?sourceRef=" + pr_release_name + "&targetRef=main"
 
     delay(1)
     # wb.get(url)
@@ -78,40 +78,49 @@ def createPR(wb, serviceName, version):
     # 切换到新打开的标签页
     wb.switch_to.window(wb.window_handles[-1])
 
-    delay(2)
-    # click create a pull request button
-    button = wb.find_element_by_xpath(
-        '/html/body/div[1]/div/div/div[2]/div[2]/div[2]/div/div[3]/div[1]/div/div[2]/div[2]/a')
-    ActionChains(wb).move_to_element(button).click(button).perform()
-    delay(3)
+    if index == 0:
+        user_input = input("Enter your choice: ").strip().upper()
 
+    delay(2)
     # input title
-    title = wb.find_element_by_xpath(
-        "/html/body/div[1]/div/div/div[2]/div[2]/div[2]/div/div[3]/div/div/div/div[1]/div/div/input")
+    title = wb.find_element(By.XPATH,
+                            "/html/body/div[1]/div/div/div[2]/div[2]/div[2]/div/div[3]/div/div/div/div[1]/div/div/input")
     # 使用 JavaScript 清除输入框中的值
-    wb.execute_script("arguments[0].value = '';", title)
+    # wb.execute_script("arguments[0].value = '';", title)
+    # title.send_keys('release stage-' + version + '_' + date)
+    title.click()
+    # 手动选择所有文本并删除
+    title.send_keys(Keys.HOME)  # 移动到文本的开头
+    title.send_keys(Keys.SHIFT, Keys.END)  # 选择所有文本
+    title.send_keys(Keys.DELETE)  # 删除选择的文本
+    delay(1)
     title.send_keys('release stage-' + version + '_' + date)
 
-    # choose target branch
-    branch = wb.find_element_by_xpath(
-        '/html/body/div[1]/div/div/div[2]/div[2]/div[2]/div/div[1]/div/span/span[2]/div/button')
-    ActionChains(wb).move_to_element(branch).click(branch).perform()
+    # create PR
+    pr = wb.find_element(By.XPATH,
+                         '//*[@id="skip-to-main-content"]/div/div[3]/div/div/div/div[6]/div/button')
+    ActionChains(wb).move_to_element(pr).click(pr).perform()
+    delay(10)
 
-    # # clear PBI button
-    # clear = wb.find_element_by_xpath(
-    #     '/html/body/div[1]/div/div/div[2]/div[2]/div[2]/div/div[3]/div[2]/div/div/div[5]/div/div[3]/div/div[2]/div[2]/button[1]')
-    # ActionChains(wb).move_to_element(clear).click(clear).perform()
+    auto = wb.find_element(By.XPATH, '//*[@id="skip-to-main-content"]/div/div[1]/div/div[1]/div[3]/button')
+    ActionChains(wb).move_to_element(auto).click(auto).perform()
+    delay(1)
+    custom = wb.find_element(By.XPATH,
+                             '//*[@id="__bolt-panel-1"]/div[2]/div/div[3]/div/div[3]/div[3]/div[1]/span/span')
+    ActionChains(wb).move_to_element(custom).click(custom).perform()
+    delay(1)
+    commit_message = wb.find_element(By.XPATH,
+                                     '/html/body/div[2]/div/div/div/div[2]/div/div[3]/div/div[3]/div[4]/div/div/input')
+    commit_message.click()
+    # 手动选择所有文本并删除
+    commit_message.send_keys(Keys.HOME)  # 移动到文本的开头
+    commit_message.send_keys(Keys.SHIFT, Keys.END)  # 选择所有文本
+    commit_message.send_keys(Keys.DELETE)  # 删除选择的文本
+    delay(1)
+    commit_message.send_keys('release stage-' + version + '_' + date)
 
-    # select_branch_button = WebDriverWait(wb, 3).until(
-    #     EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/div/div/div[2]/div[2]/div[2]/div/div[1]/div/span/span[2]/div/button"))
-    # )
-    # select_branch_button.click()
-
-    delay(5)
-    # 查找并点击 "develop" 按钮
-    develop_button = wb.find_element(By.XPATH, "//button[contains(text(), 'develop')]")
-    wb.execute_script("arguments[0].click();", develop_button)
-
+    set = wb.find_element(By.XPATH, '//*[@id="__bolt-complete"]')
+    ActionChains(wb).move_to_element(set).click(set).perform()
 
 if __name__ == '__main__':
     wb = configEnv()
@@ -122,10 +131,10 @@ if __name__ == '__main__':
         delay(1)
 
         try:
-            createPR(wb, serviceName, version)
+            createPR(wb, serviceName, version, index)
         except NoSuchElementException as e:
             print("Error:", e)
 
         print("End process index:" + str(index) + " " + path + " " + pr_release_name)
         print("\n")
-    delay(1000)
+    delay(10000)

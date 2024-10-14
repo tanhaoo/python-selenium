@@ -2,24 +2,24 @@ from subprocess import check_call, CalledProcessError
 import time
 
 project_path = [
-    ("/Users/aaron.tanhenkel.com/Documents/Project/Git/b2b/ecommerce-gateway-store-b2b", "release/1.0.X"),
-    ("/Users/aaron.tanhenkel.com/Documents/Project/Git/osb/ecommerce-gateway-store-osb", "release/2.3.X"),
-    ("/Users/aaron.tanhenkel.com/Documents/Project/Git/mkp/ecommerce-gateway-store-mkp", "release/2.2.X"),
-    ("/Users/aaron.tanhenkel.com/Documents/Project/Git/abc/ecommerce-gateway-store-abc", "release/2.2.X"),
+    ("/Users/tanaa/Documents/Project/b2b/ecommerce-gateway-store-b2b", "release/1.0.X"),
+    ("/Users/tanaa/Documents/Project/osb/ecommerce-gateway-store-osb", "release/2.3.X"),
+    ("/Users/tanaa/Documents/Project/mkp/ecommerce-gateway-store-mkp", "release/2.2.X"),
+    ("/Users/tanaa/Documents/Project/abc/ecommerce-gateway-store-abc", "release/2.2.X"),
 
-    # ("/Users/aaron.tanhenkel.com/Documents/Project/Git/mkp/ecommerce-service-store-mkp", "release/2.4.X"),
-    ("/Users/aaron.tanhenkel.com/Documents/Project/Git/b2b/ecommerce-service-store-b2b", "release/1.0.X"),
-    # ("/Users/aaron.tanhenkel.com/Documents/Project/Git/osb/ecommerce-service-mall", "release/2.4.X"),
-    ("/Users/aaron.tanhenkel.com/Documents/Project/Git/abc/ecommerce-service-mall", "release/3.0.X"),
+    # ("/Users/tanaa/Documents/Project/Git/mkp/ecommerce-service-store-mkp", "release/2.4.X"),
+    ("/Users/tanaa/Documents/Project/b2b/ecommerce-service-store-b2b", "release/1.0.X"),
+    ("/Users/tanaa/Documents/Project/osb/ecommerce-service-store-osb", "release/2.4.X"),
+    ("/Users/tanaa/Documents/Project/abc/ecommerce-service-store-abc", "release/3.0.X"),
     #
-    ("/Users/aaron.tanhenkel.com/Documents/Project/Git/promotion/ecommerce-core-promotion", "release/2.2.X"),
-    ("/Users/aaron.tanhenkel.com/Documents/Project/Git/promotion/dependency-promotion-rule-engine", "release/2.0.X"),
-    #
-    ("/Users/aaron.tanhenkel.com/Documents/Project/Git/promotion/ecommerce-service-promotion", "release/2.2.X"),
+    ("/Users/tanaa/Documents/Project/ecommerce-core-promotion", "release/2.2.X"),
+    ("/Users/tanaa/Documents/Project/dependency-promotion-rule-engine", "release/2.0.X"),
+
+    ("/Users/tanaa/Documents/Project/ecommerce-service-promotion", "release/2.2.X"),
 
 ]
 
-pr_release_name = "publish/10"
+pr_release_name = "publish/14"
 
 
 def delay(sec):

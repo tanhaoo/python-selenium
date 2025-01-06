@@ -14,19 +14,19 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.wait import WebDriverWait
 
-pr_release_name = "publish/13"
-date = "20241009"
+pr_release_name = "publish/20"
+date = "20241231"
 
 project_path = [
-    # ("/Users/tanaa/Documents/Project/b2b/ecommerce-service-store-b2b", "release/1.0.X",
-    #  'ecommerce-service-store-b2b', 'b2b-1.0.40-SNAPSHOT'),
-    # ("/Users/tanaa/Documents/Project/osb/ecommerce-service-store-osb", "release/2.4.X",
-    #  'ecommerce-service-store-osb', 'osb-2.4.19-SNAPSHOT'),
-    # ("/Users/tanaa/Documents/Project/abc/ecommerce-service-store-abc", "release/3.0.X",
-    #  'ecommerce-service-store-abc', 'abc-3.0.37-SNAPSHOT'),
+    ("/Users/tanaa/Documents/Project/b2b/ecommerce-service-store-b2b", "release/1.0.X",
+     'ecommerce-service-store-b2b', 'b2b-2.0.5-SNAPSHOT'),
+    ("/Users/tanaa/Documents/Project/osb/ecommerce-service-store-osb", "release/2.4.X",
+     'ecommerce-service-store-osb', 'osb-3.0.5-SNAPSHOT'),
+    ("/Users/tanaa/Documents/Project/abc/ecommerce-service-store-abc", "release/3.0.X",
+     'ecommerce-service-store-abc', 'abc-4.0.5-SNAPSHOT'),
     #
-    # ("/Users/tanaa/Documents/Project/ecommerce-core-promotion", "release/2.2.X",
-    #  'ecommerce-core-promotion', '2.2.X'),
+    ("/Users/tanaa/Documents/Project/ecommerce-core-promotion", "release/2.2.X",
+     'ecommerce-core-promotion', '2.2.X'),
     ("/Users/tanaa/Documents/Project/dependency-promotion-rule-engine", "release/2.0.X",
      'dependency-promotion-rule-engine', '2.0.X'),
     # ("/Users/tanaa/Documents/Project/ecommerce-service-promotion", "release/2.2.X",
@@ -63,7 +63,7 @@ def configEnv():
         '--user-data-dir=/Users/tanaa/Library/Application Support/Google/Chrome')
 
     # service = Service(ChromeDriverManager().install(), options=chrome_options)
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager(driver_version="129.0.6668.101").install()),
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager(driver_version="130.0.6723.69").install()),
                               options=chrome_options)
     return driver
 

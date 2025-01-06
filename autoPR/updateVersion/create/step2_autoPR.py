@@ -10,16 +10,17 @@ from selenium.webdriver.chrome.options import Options
 import chromedriver_autoinstaller as chromedriver
 import time
 import pickle
+import os
 
 from selenium.webdriver.common.keys import Keys
 
 project_path = [
     ("/Users/tanaa/Documents/Project/b2b/ecommerce-service-store-b2b", "release/1.0.X",
-     'ecommerce-service-store-b2b', 'b2b-1.0.39-SNAPSHOT', "release-1.0.X"),
-    # ("/Users/aaron.tanhenkel.com/Documents/Project/Git/osb/ecommerce-service-mall", "release/2.4.X",
-    #  'ecommerce-service-store-osb', 'osb-2.4.18-SNAPSHOT'),
-    # ("/Users/aaron.tanhenkel.com/Documents/Project/Git/abc/ecommerce-service-mall", "release/3.0.X",
-    #  'ecommerce-service-store-abc', 'abc-3.0.35-SNAPSHOT'),
+     'ecommerce-service-store-b2b', 'b2b-2.0.5-SNAPSHOT', "release-1.0.X"),
+    ("/Users/tanaa/Documents/Project/osb/ecommerce-service-store-osb", "release/2.4.X",
+     'ecommerce-service-store-osb', 'osb-3.0.5-SNAPSHOT', "release-2.4.X"),
+    ("/Users/tanaa/Documents/Project/abc/ecommerce-service-store-abc", "release/3.0.X",
+     'ecommerce-service-store-abc', 'abc-4.0.5-SNAPSHOT', "release-3.0.X"),
     # ("/Users/aaron.tanhenkel.com/Documents/Project/Git/mkp/ecommerce-service-store-mkp", "release/2.4.X",
     #  'ecommerce-service-store-mkp', 'mkp-2.4.26-SNAPSHOT'),
 ]
@@ -39,12 +40,13 @@ def doShell(shell, path):
 
 
 def configEnv():
+    os.environ['WDM_SSL_VERIFY'] = '0'
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument(
         '--user-data-dir=/Users/tanaa/Library/Application Support/Google/Chrome')
 
     # service = Service(ChromeDriverManager().install(), options=chrome_options)
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager(driver_version="129.0.6668.59").install()),
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager(driver_version="130.0.6723.69").install()),
                               options=chrome_options)
     return driver
 

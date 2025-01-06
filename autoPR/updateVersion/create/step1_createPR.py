@@ -3,11 +3,11 @@ import time
 
 project_path = [
     ("/Users/tanaa/Documents/Project/b2b/ecommerce-service-store-b2b", "release/1.0.X",
-     'b2b-1.0.40-SNAPSHOT'),
-    # ("/Users/aaron.tanhenkel.com/Documents/Project/Git/osb/ecommerce-service-mall", "release/2.4.X",
-    #  'osb-2.4.18-SNAPSHOT'),
-    # ("/Users/aaron.tanhenkel.com/Documents/Project/Git/abc/ecommerce-service-mall", "release/3.0.X",
-    #  'abc-3.0.35-SNAPSHOT'),
+     'b2b-2.0.5-SNAPSHOT'),
+    ("/Users/tanaa/Documents/Project/osb/ecommerce-service-store-osb", "release/2.4.X",
+     'osb-3.0.5-SNAPSHOT'),
+    ("/Users/tanaa/Documents/Project/abc/ecommerce-service-store-abc", "release/3.0.X",
+     'abc-4.0.5-SNAPSHOT'),
     # ("/Users/aaron.tanhenkel.com/Documents/Project/Git/mkp/ecommerce-service-store-mkp", "release/2.4.X",
     #  'mkp-2.4.26-SNAPSHOT'),
 ]
